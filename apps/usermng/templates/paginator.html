@@ -1,0 +1,84 @@
+{% if paginator.num_pages > 1%}
+<div class="d-flex justify-content-center">
+    <ul class="pagination">
+        {% if usuarios.has_previous %}
+            <li class="page-item d-none d-sm-block"><a class="page-link" href="?page={{ usuarios.previous_page_number }}#pagtable">Anterior</a></li>
+        {% endif %}
+        {% for page in paginator.page_range %}
+            {% if forloop.last and page != usuarios.number and paginator.num_pages > 7 %}
+                {% if usuarios.next_page_number != paginator.num_pages%}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ usuarios.number | add:1}}#pagtable">...</a>
+                </li>
+                {% endif %}
+            <li class="page-item">
+                    <a class="page-link" href="?page={{paginator.num_pages}}#pagtable">{{paginator.num_pages}}</a>
+            </li>
+            {% endif %}
+            {% if page == usuarios.number and page > 7 %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page | add:-1 }}#pagtable">...</a>
+            </li>
+            {% endif %}
+            {% if page < 7 or page == usuarios.number %}
+            <li class="page-item {% if page == usuarios.number %}active{% endif %}">
+                <a class="page-link" href="?page={{ page }}#pagtable">{{ page }}</a>
+            </li>
+            {% endif %}
+        {% endfor %}
+        {% if usuarios.has_next %}
+            <li class="page-item d-none d-sm-block">
+                <a class="page-link" href="?page={{ usuarios.next_page_number }}#pagtable">Siguiente</a>
+            </li>
+        {% endif %}
+    </ul>
+</div>
+<div class="d-flex justify-content-center d-sm-none">
+    {% if usuarios.has_previous %}
+        <span class="page-item"><a  class="page-link" href="?page={{ usuarios.previous_page_number }}#pagtable">Anterior</a></span>
+    {% endif %}
+    {% if usuarios.has_next %}
+        <span class="page-item"><a class="page-link" href="?page={{ usuarios.next_page_number }}#pagtable">Siguiente</a></span>
+    {% endif %}
+    <br>
+    <br>
+</div>
+{% endif %}
+
+<style>
+
+    .pagination{
+        margin: 0 auto;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .pagination > li > a
+    {
+        background-color: white;
+        color: gray;
+    }
+
+    .pagination > li > a:focus,
+    .pagination > li > a:hover,
+    .pagination > li > span:focus,
+    .pagination > li > span:hover
+    {
+        color: #ffc107;
+        background-color: #eee;
+        border-color: #ddd;
+    }
+
+    .pagination > .active > a
+    {
+        color: white;
+        background-color: #ffc107 !Important;
+        border: solid 0px #5A4181 !Important;
+    }
+
+    .pagination > .active > a:hover
+    {
+        background-color: black !Important;
+        border: solid 0px #5A4181;
+    }
+</style>

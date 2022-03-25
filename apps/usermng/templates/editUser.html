@@ -1,0 +1,61 @@
+<!--Se hereda la plantilla-->
+{% extends "./plantillaBase.html" %}
+
+{% block body %}
+    <div class="row">
+
+        <div class="col-md-4 offset-md-4">
+            <h2>Editar usuario</h2>
+            <div class="card">
+                <div class="card-body">
+                    <form action="/updateuser/{{usr.username}}" method="post">{% csrf_token %}
+
+                        <div class="form-group py-2">
+                            <input type="text" id="txtUsername" name="txtUsername" class="form-control" placeholder="USUARIO"
+                                minlength="6" maxlength="8" disabled="disabled" value="{{usr.username}}" required>
+                        </div>
+                        <div class="form-group py-2">
+                             <input type="text" id="txtPassword" name="txtPassword" class="form-control" placeholder="CONTRASEÑA"
+                                minlength="6" maxlength="8" value="{{usr.password}}" required>
+                        </div>
+                        <div class="form-group py-2">
+                            <input type="number" id="txtConn" name="txtConn" class="form-control" placeholder="# CONEXIONES"
+                                minlength="6" maxlength="18" min="1" max="10" value="{{usr.maxconn}}" required>
+                        </div>
+
+                        <div class="multi_select_box">
+                            <select name="slcplan[]" id="selector" class="multi_select" title='PLAN' multiple>
+                                {% for opt in freebqts %}
+                                    {% if opt.bqtname in usr.bouquet%}
+                                        <option selected value="{{ opt.id }}" >{{ opt.bqtname }}</option>
+                                    {% else %}
+                                        <option value="{{ opt.id }}" >{{ opt.bqtname }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group py-2">
+                            <button type="submit" class="btn btn-info btn-block text-white">Guardar</button>
+                        </div>
+                    </form>
+                    <div class="contcenter">
+                        <a href="/eliminar/{{usr.username}}" id="btneliminar" class="btn btn-danger btncenter">Eliminar</a>
+                        <script type="text/javascript">
+
+                            var bteliminar = document.getElementById("btneliminar");
+
+                            bteliminar.addEventListener('click', (e) => {
+                                const confirmacion = confirm('¿Seguro que desea eliminar el registro?');
+                                if (!confirmacion){
+                                    e.preventDefault();
+                                }
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
