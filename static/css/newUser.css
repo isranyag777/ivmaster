@@ -1,0 +1,8 @@
+.multi_select_box{
+    width: auto;
+    margin: 30px auto;
+}
+
+.multi_select_box select{
+    width: 100%;
+}
