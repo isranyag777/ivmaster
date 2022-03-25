@@ -15,7 +15,7 @@ class Usuario(models.Model):
 class Sucursal(models.Model):
     name = models.CharField(max_length=50)
     ipaddress = models.CharField(max_length=15)
-    port = models.PositiveIntegerField(max_length=5)
+    port = models.PositiveIntegerField()
     operators = models.CharField(max_length=200, default='isranyag')        #Se ingresa los usuarios permitidos separados por coma, sin espacio
 
     def __str__(self):
