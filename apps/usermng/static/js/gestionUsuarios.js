@@ -71,7 +71,7 @@
             btnhab.style.display = "none";
 
             if (estado === '0'){
-                stt.style.backgroundColor = "#17a2b8";
+                stt.style.backgroundColor = "green";
                 btnact.style.display = "none";
 
             }
