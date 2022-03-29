@@ -49,6 +49,8 @@
                     </tr>
                 </thead>
                 <tbody>
+
+                {% if usuarios|length > 0 %}
                     {% for u in usuarios %}
                     <tr>
                         <td class="text"><a href="/edit/{{u.username}}">{{u.username}}</a></td>
@@ -66,6 +68,11 @@
                         <td><a href="/eliminar/{{u.username}}" class="btn btn-light eliminarjs">Eliminar</a></td>
                     </tr>
                     {% endfor %}
+                {% else %}
+                    <tr>
+                        <td>¡No hay usuarios que coincidan con tu búsqueda!</td>
+                    </tr>
+                {% endif %}
                 </tbody>
 
             </table>

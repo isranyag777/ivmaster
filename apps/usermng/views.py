@@ -18,12 +18,14 @@ def home(request):
 
 
 
-
 def connection():
     connection = pymysql.connect(user='root', passwd='L1nuxf0r3v3r.', db='xtream_iptvpro', host=host, port=port)
     cur = connection.cursor()
 
     return cur, connection
+
+
+#PRUEBA DE EXISTENCIA DE NUEVA RAMA
 
 
 @login_required
