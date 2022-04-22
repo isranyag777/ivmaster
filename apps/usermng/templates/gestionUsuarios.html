@@ -9,6 +9,22 @@
     <div class="row py-3">
 
         {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <div class="container-fluid p-0">
+              <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="True">&times;</span>
+                </button>
+                {{ message }}
+              </div>
+            </div>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <!--
+        {% if messages %}
         {% for message in messages %}
         <div class="alert alert-dismissible alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -16,6 +32,7 @@
         </div>
         {% endfor %}
         {% endif %}
+        -->
 
         <h4><a href="users/"></a>Lista de usuarios</h4>
 
@@ -26,20 +43,20 @@
         <div class="row">
             <form method="get" class="col-sm-6">
                 <div class="form-outline">
-                    <input type="search" class="form-control" id="table-responsive-search-input" placeholder="Buscar" name="search" value="{{request.GET.search}}"/>
+                    <input type="search" onkeyup="autofilter()" class="form-control" id="table-responsive-search-input" placeholder="Buscar" name="search" value="{{request.GET.search}}"/>
                 </div>
             </form>
 
             <div class="col-sm-6">
-                <a href="/newuser/" class="btn btn-info">+ Crear usuario</a>
+                <a href="/newuser/{{sucselected}}" class="btn btn-info">+ Crear usuario</a>
             </div>
         </div>
 
 
         <div class="table-responsive py-5">
-            <table class="table">
+            <table class="table" id="mytable">
                 <thead>
-                    <tr>
+                    <tr class="header">
                         <th class="text-center">USUARIO</th>
                         <th class="text-center">CONTRASEÑA</th>
                         <th class="text-center">PLAN</th>
@@ -53,19 +70,22 @@
                 {% if usuarios|length > 0 %}
                     {% for u in usuarios %}
                     <tr>
-                        <td class="text"><a href="/edit/{{u.username}}">{{u.username}}</a></td>
+                        <td>
+                            <a href="/{{sucselected}}/{{u.username}}" data-toggle="tooltip" data-placement="left"
+                               title="{{u.names}}">{{u.username}}</a>
+                        </td>
                         <td class="text">{{u.password}}</td>
                         <td class="text">{{u.bouquet}}</td>
                         <td class="text">{{u.maxconn}}</td>
                         <td><div class="cirstatus" data-status={{u.status}}></div></td>
 
-                        <td><a href="/cortar/{{u.username}}" class="btn btn-outline-danger cortarjs">Cortar</a>
-                            <a href="/activar/{{u.username}}" class="btn btn-outline-success activarjs">Reconectar</a></td>
+                        <td><a href="/{{sucselected}}/cortar/{{u.username}}" class="btn btn-outline-danger cortarjs">Cortar</a>
+                            <a href="/{{sucselected}}/activar/{{u.username}}" class="btn btn-outline-success activarjs">Reconectar</a></td>
 
-                        <td><a href="/suspender/{{u.username}}" class="btn btn-outline-dark suspenderjs">Deshabilitar</a>
-                            <a href="/habilitar/{{u.username}}" class="btn btn-outline-info habilitarjs">Habilitar</a></td>
+                        <td><a href="/{{sucselected}}/suspender/{{u.username}}" class="btn btn-outline-dark suspenderjs">Deshabilitar</a>
+                            <a href="/{{sucselected}}/habilitar/{{u.username}}" class="btn btn-outline-info habilitarjs">Habilitar</a></td>
 
-                        <td><a href="/eliminar/{{u.username}}" class="btn btn-light eliminarjs">Eliminar</a></td>
+                        <td><a href="/{{sucselected}}/eliminar/{{u.username}}" class="btn btn-light eliminarjs">Eliminar</a></td>
                     </tr>
                     {% endfor %}
                 {% else %}
@@ -78,6 +98,36 @@
             </table>
 
         </div>
+
+        <script>
+        $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+
+        function autofilter() {
+          // Declare variables
+          var input, filter, table, tr, td, i, txtValue;
+          input = document.getElementById("table-responsive-search-input");
+          filter = input.value.toUpperCase();
+          table = document.getElementById("mytable");
+          tr = table.getElementsByTagName("tr");
+
+          // Loop through all table rows, and hide those who don't match the search query
+          for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+              txtValue = td.textContent || td.innerText;
+              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+            }
+          }
+        }
+
+
+        </script>
 
         <hr>
 

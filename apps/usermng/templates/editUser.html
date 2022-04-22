@@ -8,7 +8,7 @@
             <h2>Editar usuario</h2>
             <div class="card">
                 <div class="card-body">
-                    <form action="/updateuser/{{usr.username}}" method="post">{% csrf_token %}
+                    <form action="/{{sucselected}}/updateuser/{{usr.username}}" method="post">{% csrf_token %}
 
                         <div class="form-group py-2">
                             <input type="text" id="txtUsername" name="txtUsername" class="form-control" placeholder="USUARIO"
@@ -17,6 +17,10 @@
                         <div class="form-group py-2">
                              <input type="text" id="txtPassword" name="txtPassword" class="form-control" placeholder="CONTRASEÑA"
                                 minlength="6" maxlength="8" value="{{usr.password}}" required>
+                        </div>
+                        <div class="form-group py-2">
+                             <input type="text" id="txtNames" name="txtNames" class="form-control" placeholder="NOMBRES"
+                                value="{{usr.names}}" required>
                         </div>
                         <div class="form-group py-2">
                             <input type="number" id="txtConn" name="txtConn" class="form-control" placeholder="# CONEXIONES"

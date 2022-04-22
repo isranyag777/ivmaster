@@ -28,14 +28,12 @@
     <br>
     <br>
     <div class="row py-8">
-
         <div class="col-md-4 offset-md-4">
-
             <div class="card">
                 <div class="card-body">
                     {% for suc in sucursales %}
                         {% if user.username in suc.operators %}
-                        <a href="/users/{{suc.name}}" class="btn btn-warning">{{suc.name}}</a>
+                        <a href="/{{suc.name}}" class="btn btn-warning sucselected" data-suc={{suc.name}}>{{suc.name}}</a>
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -45,6 +43,25 @@
 
     {% endif %}
 
+    <script>
+    function myfunction() {
+        var selectedsuc = document.querySelectorAll(".sucselected");
+
+        const firstname = document.getElementById("fname").value;
+        const lastname = document.getElementById("lname").value;
+
+        const selected_value = {selectedsuc}            //Pass the javascript variables to a dictionary.
+        const s = JSON.stringify(selected_value);       //Stringify converts a JavaScript object or value to a JSON string
+        console.log(s);                                 //Prints the variables to console window, which are in the JSON format
+        window.alert(s)
+        $.ajax({
+            url:"/test",
+            type:"POST",
+            contentType: "application/json",
+            data: JSON.stringify(s)});
+    }
+
+</script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
             integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>

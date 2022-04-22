@@ -4,16 +4,16 @@ from . import views
 
 urlpatterns = [
     path('', views.home),
-    path('users/<name>', views.listusers),
-    path('newuser/', views.newuser),
-    path('crearusuario/', views.createuser),
-    path('edit/<username>', views.edituser),
-    path('updateuser/<username>', views.updateuser),
+    path('<sucursalname>', views.listusers),                        #view
+    path('logs/<sucursalname>', views.showlogs),                          #view
+    path('newuser/<sucursalname>', views.newuser),                  #view
+    path('crearusuario/<sucursalname>', views.createuser),                #action
+    path('<sucursalname>/<username>', views.edituser),              #view
+    path('<sucursalname>/updateuser/<username>', views.updateuser),        #action
 
-    path('cortar/<username>', views.banuser),
-    path('activar/<username>', views.unbanuser),
-    path('suspender/<username>', views.disableuser),
-    path('habilitar/<username>', views.enableuser),
-    path('eliminar/<username>', views.deleteuser),
-
+    path('<sucursalname>/cortar/<username>', views.banuser),               #action
+    path('<sucursalname>/activar/<username>', views.unbanuser),            #action
+    path('<sucursalname>/suspender/<username>', views.disableuser),        #action
+    path('<sucursalname>/habilitar/<username>', views.enableuser),         #action
+    path('<sucursalname>/eliminar/<username>', views.deleteuser),          #action
 ]

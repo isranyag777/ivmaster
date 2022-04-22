@@ -8,7 +8,7 @@
             <h2>Usuario Nuevo</h2>
             <div class="card">
                 <div class="card-body">
-                    <form action="/crearusuario/" method="post">{% csrf_token %}
+                    <form action="/crearusuario/{{sucselected}}" method="post">{% csrf_token %}
                         <div class="form-group py-2">
                             <input type="text" id="txtUsername" name="txtUsername" class="form-control" placeholder="USUARIO"
                                 minlength="6" maxlength="8" required>
@@ -17,6 +17,12 @@
                              <input type="text" id="txtPassword" name="txtPassword" class="form-control" placeholder="CONTRASEÑA"
                                 minlength="6" maxlength="8" required>
                         </div>
+
+                        <div class="form-group py-2">
+                             <input type="text" id="txtNames" name="txtNames" class="form-control" placeholder="NOMBRES"
+                                value="{{usr.names}}" required>
+                        </div>
+
                         <div class="form-group py-2">
                             <input type="number" id="txtConn" name="txtConn" class="form-control" placeholder="# CONEXIONES"
                                 minlength="6" maxlength="18" min="1" max="10" required>

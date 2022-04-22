@@ -27,13 +27,15 @@
                 <div class="card-body">
                     <h2 class="text-align-center">Ingresa tus credenciales</h2>
                     <hr>
-                    <form action="" method="post">
+                    <form action="" method="post" >
                         {% csrf_token %}
 
                         {{ form | crispy }}
 
                         <br>
-                        <input type="submit"  value="Ingresar">
+                        <input type="submit"  value="Ingresar" class="text-align-center">
+
+                    </form>
                     </form>
                 </div>
             </div>

@@ -1,10 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "./plantillaBase.html" %}
+
+{% block body %}
+<br>
+<h3 align="center"><a href="users/"></a>Bitácora de acciones:</h3>
+
+ <div class="row py-2">
+
+
+        <div class="table-hover py-4">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="text-center">ID</th>
+                        <th class="text-center">FECHA</th>
+                        <th class="text-center">OPERADOR</th>
+                        <th class="text-center">ACCION REALIZADA</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for log in logs %}
+                    <tr>
+                        <td class="text">{{log.id}}</td>
+                        <td class="text">{{log.fecha}}</td>
+                        <td class="text">{{log.operador}}</td>
+                        <td class="text">{{log.accion}}</td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <script>
+        $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+        </script>
+
+        <hr>
+
+        <div>{% include 'pgntrlogs.html' %}</div>
+
+    </div>
+
+
+
+{% endblock %}

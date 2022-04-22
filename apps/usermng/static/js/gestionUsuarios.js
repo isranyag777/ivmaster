@@ -1,4 +1,5 @@
 (function(){
+
     var statuscr = document.querySelectorAll(".cirstatus");
     var estados = [];
     var btcortar = document.querySelectorAll(".cortarjs");
@@ -10,6 +11,7 @@
     statuscr.forEach(st => {
         estados.push(st.dataset.status);
     });
+
     btcortar.forEach(btn => {
         btn.addEventListener('click', (e) => {
             const confirmacion = confirm('¿Seguro que desea realizar la accion seleccionada?');
@@ -89,3 +91,7 @@
         }    
     }
 })();
+
+(function () {
+    ('[data-toggle="tooltip"]').tooltip()
+});
